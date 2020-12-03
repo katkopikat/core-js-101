@@ -234,6 +234,7 @@ function encodeToRot13(str) {
     if ((/[n-z]/i).test(char)) return String.fromCharCode(charCode - 13);
     return res;
   }).join('');
+  return res;
 }
 
 /**

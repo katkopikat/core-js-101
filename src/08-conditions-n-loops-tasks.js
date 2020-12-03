@@ -27,8 +27,8 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  return (num % 3 ? '' : 'Fizz') + (num % 5 ? '' : 'Buzz') || num;
 }
 
 
@@ -43,8 +43,8 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  return n === 1 || n === 0 ? 1 : n * getFactorial(n - 1);
 }
 
 
@@ -60,8 +60,14 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  let arg1 = n1;
+  let sum = 0;
+  while (arg1 <= n2) {
+    sum += arg1;
+    arg1 += 1;
+  }
+  return sum;
 }
 
 
@@ -208,8 +214,8 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split().reverse().join('');
 }
 
 
@@ -225,8 +231,8 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  return String(num).split().reverse().join('');
 }
 
 
@@ -268,8 +274,9 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const sumDig = String(num).split('').map((n) => +n).reduce((a, b) => a + b);
+  return sumDig.toString().length > 1 ? getDigitalRoot(sumDig) : sumDig;
 }
 
 
@@ -294,8 +301,16 @@ function getDigitalRoot(/* num */) {
  *   '{)' = false
  *   '{[(<{[]}>)]}' = true
  */
-function isBracketsBalanced(/* str */) {
-  throw new Error('Not implemented');
+function isBracketsBalanced(str) {
+  if (str.length % 2 !== 0) return false;
+  // if (str[0].match(/\],\),\},\>/)) return false;
+  // for (let i = 0; i < str.length; i++) {
+  // while (str.includes(pairBraickets[i])) {
+  //    str = str.replace(pairBraickets[i], '');
+  //    i = -1;
+  // }
+  // }
+  return str === '';
 }
 
 
