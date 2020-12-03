@@ -215,7 +215,7 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-  return str.split().reverse().join('');
+  return str.split('').reverse().join('');
 }
 
 
@@ -232,7 +232,7 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-  return String(num).split().reverse().join('');
+  return String(num).split('').reverse().join('');
 }
 
 

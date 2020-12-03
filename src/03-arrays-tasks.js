@@ -36,11 +36,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  const arr = [];
-  for (let i = 1; i < len * 2; i += 2) {
-    arr.push(i);
-  }
-  return arr;
+  return Array(len).fill(undefined).map((item, index) => index * 2 + 1);
 }
 
 
@@ -238,7 +234,13 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
+  // let sum = 0;
+  // const res = [];
+  // arr.forEach((item) => {
+  //   sum += item || 0;
+  //   res.push(sum);
+  // });
+  // return res;
 }
 
 /**
@@ -272,12 +274,7 @@ function getSecondItems(arr) {
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
 function propagateItemsByPositionIndex(arr) {
-  let res = [];
-  arr.forEach((it, i) => {
-    const temp = new Array(i + 1).fill(it);
-    res = res.concat(temp);
-  });
-  return res;
+  return arr.reduce((res, it, i) => res.concat(Array(i + 1).fill(it)), []);
 }
 
 
@@ -294,10 +291,8 @@ function propagateItemsByPositionIndex(arr) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  // const res = arr.reverse();
-  // res.length = 3;
-  // return res;
+function get3TopItems(arr) {
+  return arr.sort((a, b) => b - a).splice(0, 3);
 }
 
 
@@ -315,7 +310,7 @@ function get3TopItems(/* arr */) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  return arr.filter((it) => it > 0).length;
+  return arr.filter((it) => typeof it === 'number' && it > 0).length;
 }
 
 /**
@@ -332,7 +327,8 @@ function getPositivesCount(arr) {
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
 function sortDigitNamesByNumericOrder(arr) {
-  return arr.sort((a, b) => a - b);
+  const digits = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  return arr.sort((a, b) => digits.indexOf(a) - digits.indexOf(b));
 }
 
 /**
@@ -347,8 +343,8 @@ function sortDigitNamesByNumericOrder(arr) {
  *   [ -1, 1, -1, 1 ]      => 0
  *   [ 1, 10, 100, 1000 ]  => 1111
  */
-function getItemsSum(/* arr */) {
-  //return arr.reduce((sum, item) => sum + item);
+function getItemsSum(arr) {
+  return arr.length > 0 ? arr.reduce((sum, item) => sum + item) : 0;
 }
 
 /**
@@ -381,8 +377,8 @@ function getFalsyValuesCount(arr) {
  *    [ null, undefined, null ], null => 2
  *    [ true, 0, 1, 'true' ], true => 1
  */
-function findAllOccurences(/* arr, item */) {
-  //return arr.filter((it) => it === item).length;
+function findAllOccurences(arr, item) {
+  return arr.filter((it) => it === item).length;
 }
 
 /**
@@ -427,8 +423,14 @@ function toStringList(arr) {
  *      { country: 'Russia',  city: 'Saint Petersburg' }
  *    ]
  */
-function sortCitiesArray(/* arr */) {
-  // return arr.sort();
+function sortCitiesArray(arr) {
+  return arr.sort((a, b) => {
+    if (a.country > b.country) return 1;
+    if (a.country < b.country) return -1;
+    if (a.city > b.city) return 1;
+    if (a.city < b.city) return -1;
+    return 0;
+  });
 }
 
 /**
@@ -583,13 +585,7 @@ function getElementByIndexes(/* arr, indexes */) {
  *
  */
 function swapHeadAndTail(/* arr */) {
-  // const halfArr = Math.floor(arr.length / 2);
-
-  // const left = arr.slice(0, halfArr);
-  // const center = arr.slice(halfArr, halfArr + 1);
-  // const right = arr.slice(halfArr + 1);
-
-  // return [...right, ...center, ...left];
+  throw new Error('Not implemented');
 }
 
 
