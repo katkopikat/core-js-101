@@ -1,4 +1,4 @@
-/* eslint-disable prefer-rest-params */
+
 /* *********************************************************************************************
  *                                                                                             *
  * Plese read the following tutorial before implementing tasks:                                *
@@ -25,7 +25,7 @@
  *
  */
 function getComposition(f, g) {
-  return function (...arg) { return f(g(...arg)); };
+  return (...arg) => f(g(...arg));
 }
 
 
@@ -175,7 +175,12 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId10() => 11
  */
 function getIdGeneratorFunction(startFrom) {
-  return function () { return startFrom; };
+  let id = startFrom;
+  return function countId() {
+    const idCounter = id;
+    id += 1;
+    return idCounter;
+  };
 }
 
 
