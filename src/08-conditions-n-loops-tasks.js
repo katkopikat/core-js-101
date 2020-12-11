@@ -86,8 +86,9 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  return !!((a + b) > c && (a + c) > b && (b + c) > a
+  && a > 0 && b > 0 && c > 0);
 }
 
 
@@ -154,8 +155,9 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const distance = Math.hypot(circle.center.x - point.x, circle.center.y - point.y);
+  return distance < circle.radius;
 }
 
 
@@ -170,8 +172,13 @@ function isInsideCircle(/* circle, point */) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
+      return str[i];
+    }
+  }
+  return null;
 }
 
 
@@ -256,8 +263,20 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const card = String(ccn);
+  let sum = 0;
+
+  for (let i = 0; i < card.length; i += 1) {
+    let cardNum = +card[i];
+
+    if ((card.length - i) % 2 === 0) {
+      cardNum *= 2;
+      if (cardNum > 9) cardNum -= 9;
+    }
+    sum += cardNum;
+  }
+  return sum % 10 === 0;
 }
 
 /**
@@ -302,15 +321,17 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true
  */
 function isBracketsBalanced(str) {
+  let bracketsStr = str;
   if (str.length % 2 !== 0) return false;
-  // if (str[0].match(/\],\),\},\>/)) return false;
-  // for (let i = 0; i < str.length; i++) {
-  // while (str.includes(pairBraickets[i])) {
-  //    str = str.replace(pairBraickets[i], '');
-  //    i = -1;
-  // }
-  // }
-  return str === '';
+  const brackets = ['[]', '()', '{}', '<>'];
+
+  for (let i = 0; i < brackets.length; i += 1) {
+    while (bracketsStr.includes(brackets[i])) {
+      bracketsStr = bracketsStr.replace(brackets[i], '');
+      i = -1;
+    }
+  }
+  return bracketsStr === '';
 }
 
 
@@ -334,10 +355,15 @@ function isBracketsBalanced(str) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  const result = [];
+  let inputNumb = num;
+  while (inputNumb !== 0) {
+    result.push(inputNumb % n);
+    inputNumb = Math.floor(inputNumb / n);
+  }
+  return Number(result.reverse().join(''));
 }
-
 
 /**
  * Returns the commom directory path for specified array of full filenames.
