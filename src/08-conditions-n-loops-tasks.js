@@ -124,8 +124,8 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  return ((rect1.left + rect1.width > rect2.left) && (rect1.top + rect1.height > rect2.top));
 }
 
 
@@ -204,8 +204,11 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const open = isStartIncluded ? '[' : '(';
+  const close = isEndIncluded ? ']' : ')';
+  const numbers = a > b ? `${b}, ${a}` : `${a}, ${b}`;
+  return `${open}${numbers}${close}`;
 }
 
 
@@ -435,8 +438,28 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const p = [...position];
+  if (p[0][0]
+      && ((p[0][0] === p[0][1] && p[0][1] === p[0][2])
+      || (p[0][0] === p[1][0] && p[1][0] === p[2][0]))) {
+    return p[0][0];
+  }
+
+  if (p[2][2]
+      && ((p[0][2] === p[1][2] && p[1][2] === p[2][2])
+      || (p[2][0] === p[2][1] && p[2][1] === p[2][2]))) {
+    return p[2][2];
+  }
+
+  if (p[1][1]
+      && ((p[1][0] === p[1][1] && p[1][1] === p[1][2])
+      || (p[0][1] === p[1][1] && p[1][1] === p[2][1])
+      || (p[0][0] === p[1][1] && p[1][1] === p[2][2])
+      || (p[0][2] === p[1][1] && p[1][1] === p[2][0]))) {
+    return p[1][1];
+  }
+  return undefined;
 }
 
 
