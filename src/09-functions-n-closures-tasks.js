@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 
 /* *********************************************************************************************
  *                                                                                             *
@@ -63,12 +64,21 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() { //= >
-  // return (b) => {
-  //     return(c) => {
-  //         return a * (x ** 2) + b * x + c;
-  //   }
-  // }
+function getPolynom(...args) {
+  let result;
+  return (x) => {
+    switch (args.length) {
+      case 3: result = (x ** 2) * args[0] + x * args[1] + args[2];
+        break;
+      case 2: result = x * args[0] + args[1];
+        break;
+      case 1: [result] = args;
+        break;
+      default:
+        result = null;
+    }
+    return result;
+  };
 }
 
 
@@ -86,8 +96,19 @@ function getPolynom() { //= >
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const cache = new Map();
+  let result;
+  return (...args) => {
+    const key = JSON.stringify(...args);
+    if (cache.has(key)) {
+      result = cache.get(key);
+    } else {
+      result = func.call(this, ...args);
+      cache.set(key, result);
+    }
+    return result;
+  };
 }
 
 
@@ -106,8 +127,17 @@ function memoize(/* func */) {
  * }, 2);
  * retryer() => 2
  */
-function retry(/* func, attempts */) {
-  throw new Error('Not implemented');
+function retry(func, attempts) {
+  let counterCall = attempts;
+  return () => {
+    while (counterCall) {
+      try {
+        return func();
+      } catch (e) {
+        counterCall -= 1;
+      }
+    }
+  };
 }
 
 
@@ -152,8 +182,8 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...arg2) => fn(...args1, ...arg2);
 }
 
 
